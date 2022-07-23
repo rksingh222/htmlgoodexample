@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* {box-sizing: border-box;}
+
+.img-zoom-container {
+  position: relative;
+}
+
+.img-zoom-lens {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  /*set the size of the lens:*/
+  width: 40px;
+  height: 40px;
+}
+
+.img-zoom-result {
+  border: 1px solid #d4d4d4;
+  /*set the size of the result div:*/
+  width: 300px;
+  height: 300px;
+}
+</style>
+<script>
+function imageZoom(imgId,resultId){
+    var img, lens, result, cx, cy;
+    img = document.getElementById(imgId);
+    result = document.getElementById(resultId);
+
+    // creating a lens element and applying class img-zoom-lens and inserting it before img 
+    lens = document.createElement("DIV");
+    lens.setAttribute("class","img-zoom-lens");
+    img.parentElement.insertBefore(lens,img);
+
+    //ratio of bigger box where we want to give zoom effect with lens which is small box 
+    cx = result.offsetWidth / lens.offsetWidth ;
+    cy = result.offsetHeight / lens.offsetHeight;
+
+    //increasing the size of the image by multiplying the cx and cy with image width and height 
+    //so that the zoom effect is applied on the result element or result div
+    result.style.backgroundImage = "url('" + img.src + "')";
+    result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
+
+    //execute a function when someone moves the cursor over the image
+    lens.addEventListener("mousemove", movelens);
+    img.addEventListener("mousemove", movelens);
+
+    function movelens(e){
+      var pos, x, y;
+      e.preventDefault();
+      pos = getCursorPosition(e);
+      //here we have got cursor x and y position . Now we want to create a box and cursor being in the middle
+      //if we subtract the cursor position 
+      x = pos.x - (lens.offsetWidth/2);
+      y = pos.y - (lens.offsetHeight/2);
+
+      //there may be an occasion when the cursor has the position of greater than the image width in that case
+      //we restrict it not to go beyond the image heighest width 
+      if(x > (img.width - lens.offsetWidth)){
+        x = img.width - lens.offsetWidth;
+      }
+      //there may be an occasion when the cursor has the position of -x value in that case we want to restrict it
+      //to have a position of x as 0
+      if(x < 0){
+        x = 0;
+      }
+      //there may be an occasion when the cursor has the position of greater than the image height in that case
+      //we restrict it not to go beyond the image heighest height
+      if(y > (img.height - lens.offsetHeight)){
+        y = img.height - lens.offsetHeight;
+      }
+      //there may be an occasion when the cursor has the position of -y value in that case we want to restrict it
+      //to have a position of y as 0
+      // as the box size is 40 px we are letting the coder know that it will have that much of space and won't go beyond
+      //image size
+      if(y < 0){
+        y = 0;
+      }
+      //here we are setting the lens which is havign height of 40 and width of 40 and giving its top and left position and it
+      //will create a box at the moved place
+      lens.style.top = y + "px";
+      lens.style.left = x + "px";
+
+      //as we have multiplied cx with imagewidth so the total widh = imagewidth * cx now as we have got the x position we multiply with
+      //cx to have the same aspect similar with height
+      result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
+
+    }
+
+    function getCursorPosition(e){
+      e = e || window.event;
+      // getBoundingClientRect() for the element returns the top , left, width and height of that element
+      a = img.getBoundingClientRect();
+      // since it is the event of the lens which we are creating or mouse which is moved in the image
+      // e.PageX will give the position of the cursor but we don't need the complete position of the cursor
+      //but instead we want the positon of the curson from the image not from the browser window
+      //hence or therefore we are subtracting it from the image position which is below it 
+      //lets suppose my image is standing at position 10 from the left and 20 from the top  and my cursor is 
+      //present inside the image with position 40 and 60. Now i want my absolute positioning of the cursor
+      //which is possible when i subtract 60 from 20 and 40 from 10 and thats what i am doing here
+      x = e.pageX - a.left;
+      y = e.pageY - a.top;
+
+      return { x : x, y : y };
+    }
+}
+</script>
+</head>
+<body>
+
+<h1>Image Zoom</h1>
+
+<p>Mouse over the image:</p>
+
+<div class="img-zoom-container">
+  <img id="myimage" src="image1.jpg" width="300" height="240">
+  <div id="myresult" class="img-zoom-result"></div>
+</div>
+
+<p>The image must be placed inside a container with relative positioning.</p>
+<p>The result can be put anywhere on the page, but must have the class name "img-zoom-result".</p>
+<p>Make sure both the image and the result have IDs. These IDs are used when a javaScript initiates the zoom effect.</p>
+
+<script>
+// Initiate zoom effect:
+imageZoom("myimage", "myresult");
+</script>
+
+</body>
+</html>
+
