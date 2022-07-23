@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            grid-gap: 10px;
+        }
+        ul{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        ul li{
+            border: 1px solid #d0d0d0;
+            padding: 10px;
+            margin: 5px;
+            background: #d0d0d0;
+        }
+        .over {
+            background: #90a4ae;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div style="border: 1px solid #686868">
+            <ul class="draggable-list">
+                <li id="e1" draggable="true">Hello</li>
+                <li id="e2" draggable="true">How are you</li>
+                <li id="e3" draggable="true">Come</li>
+                <li id="e4" draggable="true">Fast</li>
+            </ul>
+        </div>
+        <div style="border: 1px solid #686868;">
+            <ul class="draggable-list">
+                <li id="g2" draggable="true">Wie geht es dir</li>
+                <li id="g1" draggable="true">Hallo</li>
+                <li id="g4" draggable="true">Schneller</li>
+                <li id="e4" draggable="true">Komme</li>
+            </ul>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="gamedragdrop.js"></script>
+</body>
+</html>
