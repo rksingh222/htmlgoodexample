@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        body {
+            background: #e0e0e0;
+        }
+
+        .row::after {
+            clear: both;
+            display: table;
+            content: "";
+
+        }
+
+        
+        .row .column {
+            float: left;
+            width: 25%;
+            padding: 10px;
+            height: 500px;
+            display: none;
+        }
+
+        .row .column .card {
+            width: 100%;
+            height: 100%;
+            background: white;
+            padding: 10px;
+        }
+        .btn{
+            background: white;
+            padding: 15px 15px;
+            border: none;
+            outline: none;
+            font-size: 1.2em;
+            margin-left: 10px;
+            display: inline-block;
+           
+        }
+        .active{
+            background: #3d3d3d;
+            color: white;
+        }
+        .row .column.show {
+            display:block;
+        }
+        .xyz{
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>My Portfolio</h1>
+    <hr>
+    <p>click on the buttons to filter the category</p>
+    <button class="btn active" onclick="filterSection('all')">show all</button>
+    <button class="btn" onclick="filterSection('turkey')">show Nature</button>
+    <button class="btn" onclick="filterSection('planet')">show Cars</button>
+    <button class="btn" onclick="filterSection('africa')">show People</button>
+    <div class="row">
+        <div class="column turkey show">
+            <div class="card">
+                <img src="image1.jpg" width="100%" height="65%">
+                <h4>Turkey</h4>
+                <p>Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus necessitatibus sea ei, at tantas
+                    oporteat nam. Lorem ipsum dolor sit amet, tempor prodesset eos no.</p>
+            </div>
+        </div>
+        <div class="column planet show">
+            <div class="card">
+                <img src="image2.jpg" width="100%" height="65%">
+                <h4>Planet</h4>
+                <p>Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus necessitatibus sea ei, at tantas
+                    oporteat
+                    nam. Lorem ipsum dolor sit amet, tempor prodesset eos no.</p>
+            </div>
+        </div>
+        <div class="column africa show">
+            <div class="card">
+                <img src="image3.jpg" width="100%" height="65%">
+                <h4>Africa</h4>
+                <p>Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus necessitatibus sea ei, at tantas
+                    oporteat
+                    nam. Lorem ipsum dolor sit amet, tempor prodesset eos no.</p>
+            </div>
+        </div>
+        <div class="column turkey">
+            <div class="card">
+                <img src="image1.jpg" width="100%" height="65%">
+                <h4>Turkey</h4>
+                <p>Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus necessitatibus sea ei, at tantas
+                    oporteat
+                    nam. Lorem ipsum dolor sit amet, tempor prodesset eos no.</p>
+            </div>
+        </div>
+        <div class="column planet">
+            <div class="card">
+                <img src="image2.jpg" width="100%" height="65%">
+                <h4>Planet</h4>
+                <p>Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus necessitatibus sea ei, at tantas
+                    oporteat
+                    nam. Lorem ipsum dolor sit amet, tempor prodesset eos no.</p>
+            </div>
+        </div>
+        <div class="column africa">
+            <div class="card">
+                <img src="image3.jpg" width="100%" height="65%">
+                <h4>Africa</h4>
+                <p>Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus necessitatibus sea ei, at tantas
+                    oporteat
+                    nam. Lorem ipsum dolor sit amet, tempor prodesset eos no.</p>
+            </div>
+        </div>
+        <div class="column turkey">
+            <div class="card">
+                <img src="image1.jpg" width="100%" height="65%">
+                <h4>Turkey</h4>
+                <p>Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus necessitatibus sea ei, at tantas
+                    oporteat
+                    nam. Lorem ipsum dolor sit amet, tempor prodesset eos no.</p>
+            </div>
+        </div>
+        <div class="column planet">
+            <div class="card">
+                <img src="image2.jpg" width="100%" height="65%">
+                <h4>Planet</h4>
+                <p>Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus necessitatibus sea ei, at tantas
+                    oporteat
+                    nam. Lorem ipsum dolor sit amet, tempor prodesset eos no.</p>
+            </div>
+        </div>
+        <div class="column africa">
+            <div class="card">
+                <img src="image3.jpg" width="100%" height="65%">
+                <h4>Africa</h4>
+                <p>Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus necessitatibus sea ei, at tantas
+                    oporteat
+                    nam. Lorem ipsum dolor sit amet, tempor prodesset eos no.</p>
+            </div>
+        </div>
+        <div class="column turkey">
+            <div class="card">
+                <img src="image1.jpg" width="100%" height="65%">
+                <h4>Turkey</h4>
+                <p>Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus necessitatibus sea ei, at tantas
+                    oporteat
+                    nam. Lorem ipsum dolor sit amet, tempor prodesset eos no.</p>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    filterSection("all");
+    function filterSection(c){
+        if(c == "all") 
+        {
+            c = "";
+        }
+        var x = document.getElementsByClassName("column");
+        for(var i = 0; i < x.length ; i++){
+            removeShowClass(x[i],"show");
+            //indexOf in text give the value in numbers i.e it counts from the starting to locate
+            if(x[i].className.indexOf(c) > -1){
+               console.log(x[i].className + "In filter Section")
+               addShowClass(x[i],"show");
+            }
+            
+        }
+    }
+
+
+    function removeShowClass(element,name){
+        //split() splits the text … var arr1 = text.split(“ “) will split the string where empty spaces
+        let arr1 = element.className.split(" ");
+        var arr2 = name.split(" ");
+        console.log(arr1);
+        console.log(arr2);
+
+        //indexOf in text give the value in numbers i.e it counts from the starting where as indexOf in array 
+        //counts according to the array count not individual text for example if we have an array = {‘test”, test1”} 
+        //then array.indexOf(test1) will return 1 
+        console.log(arr1.indexOf(arr2[0]) + "arr1.indexOf(arr2[0]) ")
+        if(arr1.indexOf(arr2[0]) > -1){
+
+         // Splice arr.splice(2,1) means at the 2nd count of array remove that 1 element 
+        // if second parameter is zero then it does not splice anything
+           arr1.splice(arr1.indexOf(arr2[0]),1);
+          //joins the array with spaces
+           element.className = arr1.join(" ");
+           console.log(element.className );
+        }
+    }
+    function addShowClass(element,name){
+        //split() splits the text … var arr1 = text.split(“ “) will split the string where empty spaces
+        let arr1 = element.className.split(" ");
+        var arr2 = name.split(" ");
+        //indexOf in text give the value in numbers i.e it counts from the starting where as indexOf in array 
+        //counts according to the array count not individual text for example if we have an array = {‘test”, test1”} 
+        //then array.indexOf(test1) will return 1 
+        if(arr1.indexOf(arr2[0]) == -1){
+            element.className += " " + arr2[0];
+            console.log(element.className);
+        }
+    }
+
+    var btn = document.getElementsByClassName("btn");
+    console.log(btn);
+
+    for(var i = 0; i< btn.length; i++){
+        //adding eventlistener to all the buttons 
+       btn[i].addEventListener("click", function(){
+       current = document.getElementsByClassName("active");
+       current[0].className = current[0].className.replace(" active", "");
+       this.className += " active";
+       console.log(this.className);
+    });
+    }
+    
+</script>
+</html>
