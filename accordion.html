@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+        .accordion{
+            padding: 18px;
+            text-align: left;
+            width: 100%;
+            background: #eee;
+            color: #444;
+            border: none;
+            outline: none;
+            transition: 0.4s;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        .active, .accordion:hover{
+            background: #ccc;
+        }
+        .accordion::after{
+            content: '\002B';
+            color: #777;
+            font-weight: bold;
+            margin-right: 30px;
+            float: right;
+        }
+        .active::after{
+            content: '\2212';
+        }
+        .panel{
+            background: white;
+            padding: 0px 18px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <button class="accordion">Section 1</button>
+    <div class="panel">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati, animi rem. Nostrum, earum consequatur sit deserunt, provident assumenda voluptate sapiente iure animi nulla omnis et culpa illo minus. Corporis, consequatur!</p>
+    </div>
+    <button class="accordion">Section 2</button>
+    <div class="panel">
+     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quae repudiandae suscipit minima odit ipsa? Sit, dolor adipisci quo voluptatum nesciunt ab laborum delectus accusantium natus sapiente! Deserunt vitae voluptatem necessitatibus?</p>   
+    </div>
+    <button class="accordion">Section3</button>
+    <div class="panel">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta repudiandae, praesentium voluptatibus veniam modi nisi possimus sint accusantium quae rerum deserunt, eveniet facilis? Quibusdam, ipsam autem. Dolores reiciendis corporis eligendi?</p>
+    </div>
+    <script>
+        var accord = document.getElementsByClassName("accordion");
+        for(var i = 0;i<accord.length ; i++){
+            accord[i].addEventListener('click',function(event){
+              this.classList.toggle("active");
+              var panel = this.nextElementSibling;
+              console.log(panel.scrollHeight);
+              console.log(panel.innerText);
+              if(panel.style.maxHeight){
+                  panel.style.maxHeight = null;
+              }
+              else{
+                  panel.style.maxHeight = panel.scrollHeight + "px";
+              }
+            })
+        }
+    </script>
+</body>
+</html>
