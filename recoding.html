@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <video id="video" muted autoplay style="width: 700px;border: 1px solid green;">
+    </video>
+    <button id="start">start recording</button>
+    <button id="stop">stop recording</button>
+    <video id="video1" muted autoplay style="width: 700px;border: 1px solid red;">
+    </video>
+
+    <script>
+        var video = document.getElementById('video');
+        var start = document.getElementById('start');
+        var stop = document.getElementById('stop')
+        var video1 = document.getElementById('video1');
+        window.onload = function () {
+
+            let mediaRecorder ;
+            const parts = [];
+            navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(
+                (media) => {
+                    video.srcObject = media;
+                    start.onclick =function(){
+                        mediaRecorder = new MediaRecorder(media); 
+                        mediaRecorder.start(1000);
+                        mediaRecorder.ondataavailable = function(e){
+                            parts.push(e.data)
+                        }
+                    }
+                }
+            )
+            stop.onclick = function(){
+                mediaRecorder.stop();
+                const blob = new Blob(parts,{
+                    type: "video/webm"
+                })
+                video1.src = URL.createObjectURL(blob);
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                document.body.appendChild(a);
+                a.style.display="none";
+                a.href = url;
+                a.download = "test.webm";
+                a.click();
+            }
+        }
+    </script>
+</body>
+
+</html>
