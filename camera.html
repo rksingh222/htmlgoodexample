@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div style="flex-direction: column;display: flex;align-items: center;">
+        <video id="video" style="width: 700px; border: 1px solid green;" autoplay >
+        </video>
+        <button id="snap">submit</button>
+        <canvas id="canvas" width="640px" height="480px" style="border: 1px solid black;"></canvas>
+    </div>
+    <script>
+        const video = document.getElementById('video');
+        const snap = document.getElementById('snap');
+        const canvas = document.getElementById('canvas');
+
+        const constraints = {
+            audio: true,
+            video: {
+                width: {min: 1024, ideal: 1280, max: 1920},
+                height: {min: 576, ideal: 720, max: 1080}
+            }
+        }
+
+        async function startwebCam(){
+            try{
+                const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                video.srcObject = stream;
+                window.stream = stream;
+            }
+            catch(e){
+                console.log(e.toString());
+            }
+        }
+        var context = canvas.getContext('2d');
+        snap.addEventListener('click',()=>{
+            context.drawImage(video,0,0,640,480);
+        })
+        startwebCam();
+    </script>
+</body>
+</html>
