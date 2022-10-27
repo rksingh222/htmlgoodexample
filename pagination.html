@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .pagination {
+            text-align: center;
+            margin: 30px 30px 60px;
+            user-select: none;
+        }
+
+        .pagination li {
+            display: inline-block;
+            margin: 5px;
+            box-shadow: 0 5px 25px rgb(1 1 1 / 10%);
+        }
+
+        .previous-page,
+        .next-page {
+            background: #0AB1CE;
+            width: 80px;
+            border-radius: 45px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .previous-page:hover {
+            transform: translateX(-5px);
+        }
+
+        .next-page:hover {
+            transform: translateX(5px);
+        }
+
+        .current-page,
+        .dots {
+            background: #ccc;
+            width: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .pagination li a {
+            text-decoration: none;
+        }
+
+        .active {
+            background: #0AB1CE;
+        }
+
+        .disable {
+            background: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="pagination">
+        <li class="page-item previous-page"><a class="page-link" href="#">Prev</a></li>
+        <li class="page-item current-page active"><a class="page-link" href="#">1</a></li>
+        <li class="page-item dots"><a class="page-link" href="#">...</a></li>
+        <li class="page-item current-page"><a class="page-link" href="#">5</a></li>
+        <li class="page-item current-page"><a class="page-link" href="#">6</a></li>
+        <li class="page-item dots"><a class="page-link" href="#">...</a></li>
+        <li class="page-item current-page"><a class="page-link" href="#">10</a></li>
+        <li class="page-item next-page"><a class="page-link" href="#">Next</a></li>
+    </div>
+    <script type="text/javascript">
+        function getPageList(totalPages, page, maxLength) {
+            function range(start, end) {
+                return Array.from(Array(end - start + 1), (_, i) => i + start);
+            }
+            console.log(totalPages);
+            console.log(page);
+            console.log(maxLength);
+            var sideWidth = maxLength < 9 ? 1 : 2;
+            console.log(sideWidth);
+            var leftWidth = (maxLength - sideWidth * 2 - 3) >> 1;
+            console.log(leftWidth);
+            var rightWidth = (maxLength - sideWidth * 2 - 3) >> 1;
+
+            if (totalPages <= maxLength) {
+                console.log(range(1, totalPages));
+            }
+            if (page <= maxLength - sideWidth - 1 - rightWidth) {
+                console.log(range(1, maxLength - sideWidth - 1).concat(0, range(totalPages - sideWidth + 1, totalPages)));
+            }
+            if (page >= totalPages - sideWidth - 1 - rightWidth) {
+                console.log(range(1, sideWidth).concat(0, range(totalPages - sideWidth - 1 - rightWidth - leftWidth, totalPages)));
+            }
+
+           return range(1, sideWidth).concat(0,range(page-leftWidth, page+rightWidth),0,range(totalPages - sideWidth + 1, totalPages));
+        }
+        getPageList(10, 4, 6);
+    </script>
+</body>
+
+</html>
