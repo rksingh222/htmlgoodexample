@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            list-style: none;
+        }
+        .container{
+            max-width: 1200px;
+        }
+        .row{
+            display: flex;
+            align-items: center;
+        }
+        .left-item{
+            background:green;
+            flex: 0 0 17%;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .center-item{
+            background:pink;
+            flex: 0 0 66%;
+        }
+        .center-item > ul{
+            list-style:none;
+        }
+        .center-item > ul >li{
+            display:inline-block;
+            margin-left: 10px;
+            line-height: 50px;
+        }
+        .center-item > ul > li > a{
+            font-size: 15px;
+            font-weight: 500;
+            color: #000000;
+            text-decoration: none;
+            position: relative;
+            text-transform: capitalize;
+            transition:  color 0.3s ease;
+        }
+        .center-item > ul > li > .sub-menu{
+            position: absolute;
+            background: white;
+            box-shadow: -2px 2px 70px -25px rgba(0,0,0,0.3);
+            padding: 20px 30px;
+            transition: all 0.5s ease;
+            margin-top: 25px;
+            opacity: 0;
+            visibility: hidden;
+        }
+        .center-item > ul > li.menu-item-has-children:hover .sub-menu{
+            margin-top: 0;
+            visibility: visible;
+            opacity: 1;
+        }
+        .center-item > ul > li > .sub-menu > ul > li{
+            line-height: 1;
+        }
+        .center-item > ul > li > .sub-menu > ul > li > a{
+            display: inline-block;
+            position: relative;
+            padding: 10px 0;
+            font-size: 15px;
+            color: #555555;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .center-item > ul > li > .single-column{
+            min-width: 280px;
+            max-width: 350px;
+        }
+
+        .center-item > ul > li > .sub-menu.mega-menu{
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        .center-item > ul > li > .sub-menu.mega-menu-column-4{
+            left: 50%;
+            transform:translateX(-50%);
+            display: flex;
+            flex-wrap: wrap;
+        }        
+        .center-item > ul > li > .sub-menu.mega-menu-column-4 > .list-item{
+            flex : 0 0 25%;
+            padding: 0 15px;        
+        }
+
+        .center-item > ul > li > .sub-menu.mega-menu-column-4 > .list-item .title{
+            font-size: 16px;
+            color: #ea4636;
+            font-weight: 500;
+            line-height: 1;
+            padding: 10px 0;
+        }
+
+        .center-item > ul > li > .sub-menu.mega-menu-column-4 > .list-item img{
+           /* vertical-align: middle;*/
+            max-width: 100%;
+            width: 100%;
+            vertical-align: middle;
+        }
+        .center-item > ul > li > .sub-menu.mega-menu-column-4 > .list-item > ul > li {
+            line-height: 1;
+        }
+        .center-item > ul > li > .sub-menu.mega-menu-column-4 > .list-item > ul > li > a{
+            display: inline-block;
+            padding: 12px 0;
+        }
+        .center-item > ul > li > .sub-menu > ul > li > a:hover,
+        .center-item > ul > li:hover > a{
+            color: #ea4636;
+            cursor: pointer;
+        }
+        .right-item{
+            background:hotpink;
+            flex: 0 0 17%;
+        }
+        .banner-section{
+            width: 100%;
+            max-width: 100%;
+            background: red;
+            height: 700px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="left-item">MyStore</div>
+                <div class="center-item">
+                    <ul>
+                        <li><a>home</a></li>
+                        <li class="menu-item-has-children">
+                            <a>contact</a>
+                            <div class="sub-menu mega-menu mega-menu-column-4">
+                                <div class="list-item">
+                                    <h4 class="title">Men's Fashion</h4>
+                                    <ul>
+                                        <li><a href=#>Product Line 1</a></li>
+                                        <li><a href=#>Product Line 2</a></li>
+                                        <li><a href=#>Product Line 3</a></li>
+                                        <li><a href=#>Product Line 4</a></li>
+                                    </ul>
+                                    <h4 class="title">Beauty</h4>
+                                    <ul>
+                                        <li><a href=#>Product Line 1</a></li>
+                                        <li><a href=#>Product Line 2</a></li>
+                                        <li><a href=#>Product Line 3</a></li>
+                                        <li><a href=#>Product Line 4</a></li>
+                                    </ul>
+                                </div>
+                                <div class="list-item">
+                                    <h4 class="title">Women's Fashion</h4>
+                                    <ul>
+                                        <li><a href=#>Product Line 1</a></li>
+                                        <li><a href=#>Product Line 2</a></li>
+                                        <li><a href=#>Product Line 3</a></li>
+                                        <li><a href=#>Product Line 4</a></li>
+                                    </ul>
+                                    <h4 class="title">Furniture</h4>
+                                    <ul>
+                                        <li><a href=#>Product Line 1</a></li>
+                                        <li><a href=#>Product Line 2</a></li>
+                                        <li><a href=#>Product Line 3</a></li>
+                                        <li><a href=#>Product Line 4</a></li>
+                                    </ul>
+                                </div>
+                                <div class="list-item">
+                                    <h4 class="title">Home, Kitchen</h4>
+                                    <ul>
+                                        <li><a href=#>Product Line 1</a></li>
+                                        <li><a href=#>Product Line 2</a></li>
+                                        <li><a href=#>Product Line 3</a></li>
+                                        <li><a href=#>Product Line 4</a></li>
+                                    </ul>
+                                </div>
+                                <div class="list-item">
+                                    <img src="./assets/tarnet-coles/20221108_123329.jpg">
+                                </div>
+                            </div>
+                        </li>
+                        <li class="menu-item-has-children">
+                            <a>shop</a>
+                            <div class="sub-menu single-column">
+                                <ul>
+                                    <li><a>Standard Layout</a></li>
+                                    <li><a>Single Post Layout</a></li>
+                                    <li><a>Grid Layout</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li><a>about</a></li>
+                    </ul>
+                </div>
+                <div class="right-item">Hello</div>
+            </div>
+        </div>
+    </header>
+    <section class="banner-section">
+
+    </section>
+</body>
+</html>
