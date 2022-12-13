@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&display=swap");
+
+        :root {
+            --White: hsl(0, 0%, 100%);
+            /*--Grayish-Blue: hsl(211, 10%, 45%);*/
+            --Grayish-Blue: #67727e;
+            --light-grayish-blue: #AFB0E9;
+
+            --Moderate-blue: #5457B6;
+
+            --Dark-blue: #42556C;
+            /*--Moderate-blue: hsl(238, 40%, 52%);*/
+            /*--Very-light-gray: hsl(228, 33%, 97%);*/
+            --Very-light-gray: #f5f6fa;
+
+            --light-gray: #42556c;
+
+            --Soft-red: #E5AEAF;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: "Rubik", sans-serif;
+            font-size: 16px;
+        }
+
+        p {
+            line-height: 1.5;
+        }
+
+        body {
+            height: 100%;
+            width: 100%;
+            padding-top: 3rem;
+            background-color: var(--Very-light-gray);
+        }
+
+        .comment-section {
+            width: 75ch;
+            margin: auto;
+            margin-top: 1rem;
+
+        }
+
+        .comments-wrp {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .comment-section {
+            padding: 0 1rem;
+        }
+
+        .container {
+            border-radius: 8px;
+            padding: 1.5rem;
+            background-color: var(--White);
+        }
+
+        .comment {
+            display: grid;
+            grid-template-areas:
+                "score user controls"
+                "score comment comment"
+                "score comment comment"
+            ;
+            grid-template-columns: auto 1fr auto;
+            gap: 1.5rem;
+            row-gap: 1rem;
+            color: var(--Grayish-Blue);
+            margin-bottom: 1rem;
+        }
+
+        .c-score {
+            color: var(--Moderate-blue);
+            font-weight: 500;
+            background-color: var(--Very-light-gray);
+            padding: .75rem;
+            padding-top: .5rem;
+            width: 1rem;
+            grid-area: score;
+            gap: 1rem;
+            display: flex;
+            flex-direction: column;
+            box-sizing: content-box;
+            align-items: center;
+            border-radius: 8px;
+            align-self: flex-start;
+        }
+
+        .c-user {
+            grid-area: user;
+            width: 100%;
+            gap: 1rem;
+            display: flex;
+            align-items: center;
+
+        }
+
+        .usr-name {
+            color: var(--Dark-blue);
+            font-weight: 700;
+        }
+
+        .usr-img {
+            height: 2rem;
+            width: 2rem;
+        }
+
+        .c-text {
+            grid-area: comment;
+            width: 100%;
+        }
+
+        .c-controls {
+            display: flex;
+            gap: 1rem;
+            color: var(--Moderate-blue);
+            grid-area: controls;
+            align-self: center;
+            justify-self: flex-end;
+        }
+
+        .c-controls a {
+            align-items: center;
+        }
+
+        .reply-to {
+            color: var(--Moderate-blue);
+            font-weight: 500;
+        }
+
+
+        .edit,
+        .reply {
+            color: var(--Moderate-blue);
+            cursor: pointer;
+        }
+
+        .edit {
+            display: none;
+        }
+
+        .delete {
+            color: var(--Soft-Red);
+            display: none;
+        }
+
+        .this-user .edit{
+            display: flex;
+        }
+
+        .control-icon {
+            margin-right: .5rem;
+        }
+
+        .reply-input {
+            display: grid;
+            grid-template-areas: "avatar comment button";
+            grid-template-columns: min-content auto min-content;
+            gap: 1rem;
+            min-height: 9rem;
+            margin-bottom: 1rem;
+            justify-items: center;
+        }
+
+        .reply-img {
+            grid-area: avatar;
+            width: 2rem;
+            height: 2rem;
+        }
+
+        .cmnt-area {
+            padding: 1rem;
+            width: 100%;
+            border: 1px solid #42556c;
+            border-radius: 4px;
+            resize: none;
+            grid-area: comment;
+        }
+
+        .bu-primary {
+            grid-area: button;
+            background-color: var(--Moderate-blue);
+            color: var(--White);
+            border: none;
+            padding: .75rem 1.5rem;
+            border-radius: 4px;
+            align-self: flex-start;
+        }
+
+        .replies {
+            display: flex;
+            border-left: 1px solid var(--light-grayish-blue);
+            margin-left: 2.5rem;
+            padding-left: 2.4rem;
+        }
+    </style>
+</head>
+
+<body>
+    <template class="reply-input-template">
+        <div class="reply-input container">
+            <img src="images/avatars/image-maxblagun.png" class="reply-img">
+            <textarea placeholder="press comment here" class="cmnt-area"></textarea>
+            <button class="bu-primary">SEND</button>
+        </div>
+    </template>
+    <template class="comment-template">
+        <div class="comment-wrp">
+            <div class="comment container">
+                <div class="c-score">
+                    <img src="images/icon-plus.svg" class="score-control score-plus">
+                    <p class="score-number">5</p>
+                    <img src="images/icon-minus.svg" class="score-control score-minus">
+                </div>
+                <div class="c-user">
+                    <img src="images/avatars/image-maxblagun.png" class="usr-img">
+                    <p class="usr-name">maxblagun</p>
+                    <p class="cmnt-at">2 weeks ago</p>
+                </div>
+                <div class="c-controls">
+                    <a class="delete"><img src="images/icon-delete.svg" class="control-icon">Delete</a>
+                    <a class="edit"><img src="images/icon-edit.svg" class="control-icon">Edit</a>
+                    <a class="reply"><img src="images/icon-reply.svg" class="control-icon">Reply</a>
+                </div>
+                <p class="c-text">
+                    <span class="reply-to"></span>
+                    <span class="c-body">"Woah, your project looks awesome! How long have you been coding for? I'm still
+                        new, but think I want to dive into React as well soon. Perhaps you can give me an insight on
+                        where I can learn React? Thanks!,"</span>
+                </p>
+            </div>
+            <div class="replies comments-wrp">
+            </div>
+            <!--replies-->
+        </div>
+    </template>
+    <main>
+        <div class="comment-section">
+            <div class="comments-wrp">
+
+            </div>
+        </div>
+    </main>
+    <script>
+
+        var data = {
+            comments: [
+                {
+                    parent: 0,
+                    id: 1,
+                    content: "Woah, your project looks awesome! How long have you been coding for? I'm still new, but think I want to dive into React as well soon. Perhaps you can give me an insight onwhere I can learn React? Thanks!",
+                    createdAt: "2Months ago",
+                    score: 12,
+                    user: {
+                        image: {
+                            png: "./images/avatars/image-amyrobson.png",
+                            webp: "./images/avatars/image-amyrobson.webp",
+                        },
+                        username: "amyrobson"
+                    },
+                    replies: [
+                        {
+                            parent: 1,
+                            id: 1,
+                            content:
+                                "If you're still new, I'd recommend focusing on the fundamentals of HTML, CSS, and JS before considering React. It's very tempting to jump ahead but lay a solid foundation first.",
+                            createdAt: "1 week ago",
+                            score: 4,
+                            replyingTo: "amyrobson",
+                            user: {
+                                image: {
+                                    png: "./images/avatars/image-ramsesmiron.png",
+                                    webp: "./images/avatars/image-ramsesmiron.webp",
+                                },
+                                username: "ramsesmiron",
+                            },
+                        },
+                    ]
+                }
+            ]
+        }
+
+        /*let comment = document.querySelector(".comments-wrp");
+        let commenttemp = document.querySelector(".comment-template");
+        let commentNode = commenttemp.content.cloneNode(true);
+        const bu_reply = commentNode.querySelector(".reply");
+        children = [].slice.call(commentNode.childNodes, 0);
+        comment.appendChild(commentNode);
+        console.log(bu_reply);
+
+        function spawnReplyInput(parent) {
+            let reply = document.querySelector(".reply-input-template");
+            let replyNode = reply.content.cloneNode(true);
+            parent.appendChild(replyNode);
+            let sendbutton = parent.querySelector(".bu-primary");
+            sendbutton.addEventListener("click", function () {
+                if (parent.querySelectorAll(".reply-input")) {
+                    parent.querySelectorAll(".reply-input").forEach((e) => {
+                        e.remove();
+                        let cmnttemp = document.querySelector(".comment-template");
+                        let cmnttNode = commenttemp.content.cloneNode(true);
+                        parent.appendChild(cmnttNode);
+                    });
+                }
+            })
+        }
+
+
+
+
+
+        bu_reply.addEventListener("click", function () {
+            console.log("hello");
+            console.log(children);
+            spawnReplyInput(children[1].querySelector(".replies"));
+        });*/
+
+
+
+        /// starting to create a first with data.comments 
+
+
+        function createCommentNode(commentdata) {
+            commentTemplate = document.querySelector('.comment-template');
+            commentNode = commentTemplate.content.cloneNode(true);
+            commentNode.querySelector('.score-number').textContent = commentdata.score;
+            commentNode.querySelector('.usr-img').src = commentdata.user.image.png;
+            commentNode.querySelector('.usr-name').textContent = commentdata.user.username;
+            commentNode.querySelector('.cmnt-at').textContent = commentdata.createdAt;
+            commentNode.querySelector('.c-body').textContent = commentdata.content;
+
+            if (commentdata.replyingTo) {
+                commentNode.querySelector('.reply-to').textContent = "@" + commentdata.replyingTo;
+            }
+            if(commentdata.user.username === "ramsesmiron"){
+                commentNode.querySelector('.comment').classList.add('this-user');
+            }
+            /*if (commentObject.user.username == data.currentUser.username) {
+                commentNode.querySelector(".comment").classList.add("this-user");
+            }*/
+            return commentNode;
+        }
+
+        function addComment(body, parentId, replyTo) {
+            console.log(parentId);
+            var commentParent = parentId == 0 ? data.comments : data.comments.filter((c) => c.id == parentId)[0].replies;
+            console.log(commentParent);
+
+            let newComment = {
+                parent: parentId,
+                id: commentParent.length === 0 ? 1 : commentParent[commentParent.length - 1].id + 1,
+                content: body,
+                createdAt: "Now",
+                score: 0,
+                replyingTo: replyTo,
+                user: {
+                    image: {
+                        png: "./images/avatars/image-ramsesmiron.png",
+                        webp: "./images/avatars/image-ramsesmiron.webp",
+                    },
+                    username: "ramsesmiron",
+                },
+            }
+            commentParent.push(newComment);
+            initComments();
+        }
+
+        function spawnReplyInput(parentNode, parent, replyTo) {
+            if (parentNode.querySelectorAll(".reply-input")) {
+                parentNode.querySelectorAll(".reply-input").forEach((e) => {
+                    e.remove();
+                })
+            }
+            var replyTemplate = document.querySelector(".reply-input-template");
+            replyNode = replyTemplate.content.cloneNode(true);
+            var appendedreply = appendfrag(parentNode, replyNode);
+            var sendcomment = appendedreply.querySelector('.bu-primary');
+
+            sendcomment.addEventListener('click', function () {
+                var body = appendedreply.querySelector('.cmnt-area').value;
+                if (body.length == 0)
+                    return;
+
+                addComment(body, parent, replyTo)
+            })
+        }
+
+        function appendfrag(parentNode, commentNode) {
+            var children = [].slice.call(commentNode.childNodes, 0);
+            parentNode.appendChild(commentNode);
+            return children[1];
+        }
+        function appendNode(parentNode, commentNode, parent) {
+            const bu_reply = commentNode.querySelector(".reply");
+            var appendedComment = appendfrag(parentNode, commentNode);
+            var replyTo = appendedComment.querySelector('.usr-name').textContent;
+            console.log(appendedComment);
+            bu_reply.addEventListener('click', function () {
+                spawnReplyInput(appendedComment.querySelector(".replies"), parent, replyTo);
+            })
+        }
+
+        function initComments(
+            commentList = data.comments,
+            parentNode = document.querySelector('.comments-wrp')) {
+            parentNode.innerHTML = "";
+            console.log("test");
+            commentList.forEach((element) => {
+                var parent = element.id == 0 ? element.parent : element.id;
+                const commentNode = createCommentNode(element);
+                if (element.replies && element.replies.length > 0) {
+                    initComments(element.replies, commentNode.querySelector('.replies'));
+                }
+                appendNode(parentNode, commentNode, parent);
+            })
+        }
+        initComments();
+    </script>
+</body>
+
+</html>
